@@ -30,5 +30,4 @@ db.Eleve.belongsTo(db.Formation, { foreignKey: "id_formation" })
 // Synchro des modèles
 db.sequelize.sync({ alter: true })
 
-
 module.exports = db
