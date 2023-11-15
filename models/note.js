@@ -6,14 +6,17 @@ const { DataTypes } = require("sequelize")
 // Définition du modèle formation
 module.exports = (DB) => {
     const Note = DB.define("Note", {
-        id_formation: {
+        id_formateur: {
             type: DataTypes.INTEGER(10),
-            allowNull: false
+            defaultValue: 0,
+            allowNull: false,
+            primaryKey: true
         },
         id_eleve: {
             type: DataTypes.INTEGER(10),
             defaultValue: 0,
-            allowNull: false
+            allowNull: false,
+            primaryKey: true
         },
         valeur: {
             type: DataTypes.INTEGER(2),

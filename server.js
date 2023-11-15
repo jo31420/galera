@@ -11,13 +11,33 @@ let DB = require("./db.config")
 // Initialisation de l'API
 const app = express()
 
-app.use(cors())
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedHeaders: "Origin, X-Requested-With, x-access-token, role, Content, Accept, Content-Type, Authorization"
+}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+/* Routers */
+const formation_router = require("./routes/formations")
+const formateur_router = require("./routes/formateurs")
+const eleve_router = require("./routes/eleves")
+const module_router = require("./routes/modules")
+const note_router = require("./routes/notes")
+
 // Routage
 app.get("/", (req, res) => res.send("Coucou les amis, I am online"))
-app.get("*", (req, res) => res.status(501).send("Que fais tu ?"))
+
+app.use("/formations", formation_router)
+app.use("/formateurs", formateur_router)
+app.use("/eleves", eleve_router)
+app.use("/modules", module_router)
+app.use("/notes", note_router)
+
+app.all("*", (req, res) => res.status(501).send("Que fais tu ?"))
+
+
 
 // Démarrage serveur avec test DB
 
@@ -38,8 +58,4 @@ mongoose
     })
     // Arret du serveur si connection impossible
     .catch(() => console.log("Erreur MONGODB!"));
-
-
-
-
 

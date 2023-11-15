@@ -29,11 +29,13 @@ module.exports = (DB) => {
             type: DataTypes.STRING(255),
             validate: {
                 isEmail: true
-            }
+            },
+            allowNull: false
         },
         password: {
             type: DataTypes.STRING(64),
-            is: /^[0-9a-f]{64}$/i
+            is: /^[0-9a-f]{64}$/i,
+            allowNull: false
         }
     })
     return Eleve

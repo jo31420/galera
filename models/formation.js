@@ -19,12 +19,12 @@ module.exports = (sequelize) => {
         debut: {
             type: DataTypes.INTEGER(10),
             defaultValue: 0,
-            allowNull: true
+            allowNull: false
         },
         fin: {
             type: DataTypes.INTEGER(10),
             defaultValue: 0,
-            allowNull: true
+            allowNull: false
         }
     })
     return Formation

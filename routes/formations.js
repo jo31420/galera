@@ -1,32 +1,29 @@
 // Import des modules
 const express = require("express")
-const Formation = require("../models/formation")
+//const Formation = require("../models/formation")
+
+const ctrlFormation = require("../controllers/c_formation")
 
 // Récupération du Router d'express
 let router = express.Router()
 
+/** Middleware time */
+router.use((req, res, next) => {
+    const event = new Date()
+    console.log("Formation time : ", event.toString())
+    next()
+})
+
+
 // Routage de la ressource Formation
-routage.get("", (req, res) => {
-    Formation.findAll()
-        .then(formations => res.json({ data: formations }))
-        .catch(err => res.status(500).json({ message: "Database Error", error: err }))
-})
+router.get("", ctrlFormation.getAllFormations)
 
-routage.get("/:id", (req, res) => {
-    let formationId = parseInt(req.params.id)
+router.get("/:id", ctrlFormation.getFormation)
 
-    // Vérification sur le champ id
-    if (!formationId) {
-        return res.json(400).json({ message: "Missing parameter" })
-    }
+router.put("", ctrlFormation.addFormation)
 
-    // Récupération de la formation
-    Formation.findOne({ where: {formation_id: formationId }, raw: true})
-    .then()
-})
+router.patch("/:id", ctrlFormation.changeFormation)
 
-router.put("")
+router.delete("/:id", ctrlFormation.deleteFormation)
 
-router.patch("/:id")
-
-router.delete("/:id")
+module.exports = router
